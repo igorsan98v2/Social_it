@@ -1,12 +1,31 @@
+.bold{
+    font-weight: bold;
+    text-align: center;
+}
 #leftLegend {
+    padding: 1.5%;
     height: 100%;
-    width: 283.94px;
+    height: calc(100% - 50px);
+    width: 301.94px;
     float: left;
+    overflow: auto;
+}
+#leftLegend tr{
+    width: 100%;
+    border-bottom: 1px silver solid;
+}
+#leftLegend tr:last-child{
+    border-bottom: 0px silver;
+}
+h1, h2, h3, h4{
+    text-align: center;
+    font-weight: bold;
 }
 #map {
     height: 100%;
+    height: calc(100% - 50px);
     width: 75%;
-    width: calc(100% - 283.94px);
+    width: calc(100% - 301.94px);
 }
 html, body {
     height: 100%;
@@ -34,9 +53,15 @@ html, body {
 }
 .list{
     font-size: 20pt;
+    color:#777;
+    text-shadow: 0 1px 0 rgba(255,255,255,.25);
+    background-color: transparent;
 }
 #brand{
     background-color: #008080;
     font-size: 24pt;
     color:#fff;
+}
+#navbar-main {
+    background-color: #fff;
 }

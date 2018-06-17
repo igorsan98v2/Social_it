@@ -25,12 +25,14 @@ function initMap() {
     function success(position) {
         userPosition = {lat: position.coords.latitude, lng: position.coords.longitude};
         var marker = new google.maps.Marker({
-            position: userPosition,
+            position: {lat: 48.739083, lng: 37.584288},
             map: map,
             title: 'UserMarker',
-            icon: icons.info.icon,
+            icon: "https://image.ibb.co/hBvWsy/location.png",
         });
     };
+
+    var markers = [];
 
     for(var i = 0; i<jsonMarkers.length; i++) {
         console.log(jsonMarkers[i][2]);
@@ -42,6 +44,7 @@ function initMap() {
                     title: "Аптека",
                     icon: "https://image.ibb.co/jZGUvJ/image.png",
                 });
+                markers.push(marker);
                 break;
 
             case 2 :
@@ -51,6 +54,7 @@ function initMap() {
                     title: "Больница",
                     icon: "https://image.ibb.co/j19w9d/hospitals.png",
                 });
+                markers.push(marker);
                 break;
 
             case 3 :
@@ -60,6 +64,7 @@ function initMap() {
                     title: "Административное здание",
                     icon: "https://image.ibb.co/nkXxhy/image.png",
                 });
+                markers.push(marker);
                 break;
 
             case 4 :
@@ -69,6 +74,7 @@ function initMap() {
                     title: "Магазин",
                     icon: "https://image.ibb.co/hjoEUd/shops.png",
                 });
+                markers.push(marker);
                 break;
 
 
@@ -79,6 +85,7 @@ function initMap() {
                     title: "Кафе",
                     icon: "https://image.ibb.co/jgg9Ud/cafe.png",
                 });
+                markers.push(marker);
                 break;
 
             case 6 :
@@ -88,6 +95,7 @@ function initMap() {
                     title: "Парикмахерская",
                     icon: "https://image.ibb.co/fGo9vJ/barbershop.png",
                 });
+                markers.push(marker);
                 break;
 
 
@@ -98,6 +106,7 @@ function initMap() {
                     title: "Ломбард",
                     icon: "https://image.ibb.co/dzvB9d/pawnshops.png",
                 });
+                markers.push(marker);
                 break;
 
             case 8 :
@@ -107,6 +116,7 @@ function initMap() {
                     title: "Голосовой светофор",
                     icon: "https://image.ibb.co/hyaYNy/traffic_light.png",
                 });
+                markers.push(marker);
                 break;
         }
 
@@ -151,18 +161,45 @@ function initMap() {
 
     }
 
+    function rad(x) {return x*Math.PI/180;}
+    function find_closest_marker() {
+        var lat = 48.739083;
+        var lng = 37.584288;
+        var R = 6371; // radius of earth in km
+        var distances = [];
+        var closest = -1;
+        for( i=0;i<markers.length; i++ ) {
+            var mlat = markers[i].position.lat();
+            var mlng = markers[i].position.lng();
+            var dLat  = rad(mlat - lat);
+            var dLong = rad(mlng - lng);
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(rad(lat)) * Math.cos(rad(lat)) * Math.sin(dLong/2) * Math.sin(dLong/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            var d = R * c;
+            distances[i] = d;
+            if ( closest == -1 || d < distances[closest] ) {
+                closest = i;
+            }
+        }
+
+        console.log(markers[closest].title);
+        return markers[closest];
+    }
+    var nearestMarker = find_closest_marker();
+
     directionsDisplay.setMap(map);
 
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
+    calculateAndDisplayRoute(directionsService, directionsDisplay, nearestMarker.position);
     /*document.getElementById('mode').addEventListener('change', function() {
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     });*/
 }
-function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+function calculateAndDisplayRoute(directionsService, directionsDisplay, dest) {
     var selectedMode = "WALKING";
     directionsService.route({
-        origin: {lat: 50.4376659, lng: 30.5283098},  // Haight.
-        destination: {lat: 48.734363, lng: 37.576274},  // Ocean Beach.
+        origin: {lat: 48.739083, lng: 37.584288},  // Haight.
+        destination: dest,  // Ocean Beach.
         // Note that Javascript allows us to access the constant
         // using square brackets and a string value as its
         // "property."

@@ -25,15 +25,81 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
-                    <li class="active list"><a href="#">Карта</a></li>
+                    <li class="active list"><a href="index.html">Карта</a></li>
                     <li class="list"><a href="#">Список доступных мест</a></li>
-                    <li class="list"><a href="#">Товары</a></li>
+                    <li class="list"><a href="services.html">Услуги</a></li>
                     <li class="list"><a href="#">Чат</a></li>
-                    <li class="list"><a href="#">Сотруднечество</a></li>
+                    <li class="list"><a href="cooperation.html">Сотрудничество</a></li>
                 </ul>
             </div>
         </nav>
-        <div id="leftLegend">Легенда</div>
+        <div id="leftLegend">
+            <h3 class="bold">Обозначения</h3>
+            <center><table>
+                <tr style="border-bottom: 1px silver solid">
+                    <td><img src="{% static 'images/location.png' %}"></td>
+                    <td>Ваше местоположение.</td>
+                </tr>
+            </table></center>
+            <h4>Критерии доступности</h4>
+            <table>
+                <tr>
+                    <td><img src="{% static 'images/Icon1cat.png' %}"></td>
+                    <td><b>Первая категория доступности.</b> Объект архитектурно доступен для всех категорий граждан.</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/Icon2cat.png' %}"></td>
+                    <td><b>Вторая категория доступности.</b> Объект архитектурно доступен для всех категорий граждан, за исключением людей с инвалидностью, передвигающихся с помощью кресел колёсных, а также людей с детскими колясками.</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/Icon3cat.png' %}"></td>
+                    <td><b>Третья категория доступности.</b> Объект <b>частично</b> архитектурно доступен для всех категорий граждан.</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/Icon4cat.png' %}"></td>
+                    <td><b>Четвёртая категория доступности.</b> Объект <b>частично</b> архитектурно доступен для всех категорий граждан, за исключением людей с инвалидностью, передвигающихся с помощью кресел колёсных, а также людей с детскими колясками.</td>
+                </tr>
+            </table>
+            <br><h4>Категории учреждений</h4>
+            <table>
+                <tr>
+                    <td><img src="{% static 'images/hospitals.png' %}"></td>
+                    <td class="bold">Медицинские учреждения</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/pharmacies.png' %}"></td>
+                    <td class="bold">Аптеки</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/administrative-building.png' %}"></td>
+                    <td class="bold">Административные здания</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/shops.png' %}"></td>
+                    <td class="bold">Магазины</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/cafe.png' %}"></td>
+                    <td class="bold">Места общественного питания</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/barbershop.png' %}"></td>
+                    <td class="bold">Парикмахерские</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/pawnshops.png' %}"></td>
+                    <td class="bold">Ломбарды</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/transport.png' %}"></td>
+                    <td class="bold">Транспорт</td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/traffic-light.png' %}"></td>
+                    <td class="bold">Голосовые светофоры</td>
+                </tr>
+            </table>
+        </div>
         <div id="map"></div>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDROZx9FtIM4xKrrpPlGSwauiPYcbQosuU&callback=initMap" type="text/javascript"></script>
         <script>var jsonMarkers = JSON.parse("{{ json_markers_string | escapejs }}");</script>
