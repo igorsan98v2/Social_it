@@ -1,4 +1,6 @@
 function initMap() {
+    console.log(jsonMarkers, typeof(jsonMarkers));
+
     //initializing icons below
     var icons = {
         info: {
@@ -25,11 +27,20 @@ function initMap() {
         var marker = new google.maps.Marker({
             position: userPosition,
             map: map,
-            title: 'Marker',
+            title: 'UserMarker',
             icon: icons.info.icon,
         });
     };
     
+    for(var i = 0; i<jsonMarkers.length; i++) {
+        var marker = new google.maps.Marker({
+            position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+            map: map,
+            title: 'Marker',
+            icon: icons.info.icon,
+        });
+    }
+
     directionsDisplay.setMap(map);
 
     calculateAndDisplayRoute(directionsService, directionsDisplay);
