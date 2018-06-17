@@ -31,14 +31,124 @@ function initMap() {
             icon: icons.info.icon,
         });
     };
-    
+
     for(var i = 0; i<jsonMarkers.length; i++) {
-        var marker = new google.maps.Marker({
-            position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
-            map: map,
-            title: 'Marker',
-            icon: icons.info.icon,
-        });
+        console.log(jsonMarkers[i][2]);
+        switch(jsonMarkers[i][2]) {
+            case 1 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    title: "Аптека",
+                    icon: "https://image.ibb.co/jZGUvJ/image.png",
+                });
+                break;
+
+            case 2 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    title: "Больница",
+                    icon: "https://image.ibb.co/j19w9d/hospitals.png",
+                });
+                break;
+
+            case 3 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    title: "Административное здание",
+                    icon: "https://image.ibb.co/nkXxhy/image.png",
+                });
+                break;
+
+            case 4 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    title: "Магазин",
+                    icon: "https://image.ibb.co/hjoEUd/shops.png",
+                });
+                break;
+
+
+            case 5 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    title: "Кафе",
+                    icon: "https://image.ibb.co/jgg9Ud/cafe.png",
+                });
+                break;
+
+            case 6 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    title: "Парикмахерская",
+                    icon: "https://image.ibb.co/fGo9vJ/barbershop.png",
+                });
+                break;
+
+
+            case 7 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    title: "Ломбард",
+                    icon: "https://image.ibb.co/dzvB9d/pawnshops.png",
+                });
+                break;
+
+            case 8 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    title: "Голосовой светофор",
+                    icon: "https://image.ibb.co/hyaYNy/traffic_light.png",
+                });
+                break;
+        }
+
+        switch(jsonMarkers[i][1]) {
+            case 1 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    icon: "https://image.ibb.co/cF6nXy/icon1_2.png",
+                    origin: new google.maps.Point(0, 0),
+                    zIndex: 9999999,
+                });
+                break;
+
+            case 2 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    icon: "https://image.ibb.co/bvUPCy/icon2.png",
+                    zIndex: 9999999,
+                });
+                break;
+
+            case 3 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    icon: "https://image.ibb.co/hNmJ5J/icon3.png",
+                    zIndex: 9999999,
+                });
+                break;
+
+            case 4 :
+                var marker = new google.maps.Marker({
+                    position: {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]},
+                    map: map,
+                    icon: "https://image.ibb.co/ev34ed/icon1.png",
+                    zIndex: 9999999,
+                });
+                break;
+        }
+
     }
 
     directionsDisplay.setMap(map);
