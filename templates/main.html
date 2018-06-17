@@ -14,26 +14,26 @@
 <body>
 	<h1>Map:</h1>
 	<div id="map"></div>
-
+	<img src="{% static 'images/user1.jpg' %}" alt="">
 </body>
 <script>
       	function initMap() {
       		var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 	        var icons = {
 	          	info: {
-	            	icon: iconBase + 'info-i_maps.png'
+	            	icon: 'https://cdn.icon-icons.com/icons2/644/PNG/128/filled_disabled-access_icon-icons.com_59340.png'
 	          	}
 	        };
 
-	        var myLatLng = {lat: 30.233, lng: 35.044};
+	        var mapDefautPos = {lat: 48.737993, lng: 37.590348};
 
 	        var map = new google.maps.Map(document.getElementById('map'), {
-	          	zoom: 4,
-	          	center: myLatLng
+	          	zoom: 12,
+	          	center: mapDefautPos
 	        });
 
 	        var marker = new google.maps.Marker({
-	          	position: myLatLng,
+	          	position: mapDefautPos,
 	          	map: map,
 	          	title: 'Marker',
 	          	icon: icons.info.icon,
