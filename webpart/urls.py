@@ -21,4 +21,5 @@ from originapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', views.main, name='main'),
+    url(r'test', views.maintest),
 ]
