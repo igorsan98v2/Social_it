@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/LegendTitle"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/LegendTitle"/>
+        <item android:title="Критерии доступности">
+            <menu>
+                <item
+                    android:icon="@drawable/icon1cat"
+                    android:title="Первая категория доступности" />
+                <item
+                    android:icon="@drawable/icon2cat"
+                    android:title="Вторая категория доступности " />
+                <item
+                    android:icon="@drawable/icon3cat"
+                    android:title="Третья категория доступности" />
+                <item
+                    android:icon="@drawable/icon4cat"
+                    android:title="Четвертая категория доступности" />
+            </menu>
+        </item>
+    </group>
+    <group>
+        <item android:title="Категории учереждений">
+            <menu>
+                <item android:icon="@drawable/hospitals"
+                    android:title="Медицинские учереждения"/>
+                <item android:icon="@drawable/pharmacies"
+                    android:title="Аптеки"/>
+                <item android:icon="@drawable/admin"
+                    android:title="Административные здания"/>
+                <item android:icon="@drawable/shops"
+                    android:title="Магазины"/>
+                <item android:icon="@drawable/cafe"
+                    android:title="Места общественного питания"/>
+                <item android:icon="@drawable/barbershop"
+                    android:title="Парихмахерские"/>
+                <item android:icon="@drawable/pawnshops"
+                    android:title="Ломбарды"/>
+                <item android:icon="@drawable/transport"
+                    android:title="Транспорт"/>
+                <item android:icon="@drawable/trafic"
+                    android:title="Голосовые световфоры"/>
+
+            </menu>
+        </item>
+    </group>
+
+
+
+</menu>
