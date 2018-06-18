@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style-services.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style-pharmacies.css' %}">
     </head>
     <body>
         <nav class="navbar navbar-default">
@@ -24,11 +26,11 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
-                    <li class="active list"><a href="index.html">Карта</a></li>
+                    <li class="active list"><a href="{% url 'main' %}">Карта</a></li>
                     <li class="list"><a href="{% url 'places' %}">Список доступных мест</a></li>
-                    <li class="list"><a href="services.html">Услуги</a></li>
+                    <li class="list"><a href="{% url 'services' %}">Услуги</a></li>
                     <li class="list"><a href="#">Чат</a></li>
-                    <li class="list"><a href="cooperation.html">Сотрудничество</a></li>
+                    <li class="list"><a href="{% url 'coop' %}">Сотрудничество</a></li>
                 </ul>
             </div>
         </nav>

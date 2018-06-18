@@ -1,0 +1,43 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.navbar
+{
+    margin-bottom: 0%;
+    background-color: #4682B4;
+}
+.list{
+    font-size: 20pt;
+    color:#777;
+    text-shadow: 0 1px 0 rgba(255,255,255,.25);
+    background-color: transparent;
+}
+#brand{
+    background-color: #008080;
+    font-size: 24pt;
+    color:#fff;
+}
+.good{
+    padding: 2.5%;
+}
+.good div{
+    border: 1px silver solid;
+    border-radius: 15px;
+    text-align: center;
+}
+.good div h3{
+    text-align: center;
+    font-weight: bold;
+}
+.good div{
+    font-size: 14pt;
+    color: #000;
+}
+.good div img{
+    padding: 2.5%;
+    width: 95%;
+    height: auto;
+}

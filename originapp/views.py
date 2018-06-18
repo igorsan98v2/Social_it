@@ -16,5 +16,11 @@ def places(request):
 
     return render(request, 'places.html', context={'markers': markers_list})
 
-def maintest(request):
-    return render(request, 'main.html')
+def coop(request):
+    return render(request, 'coop.html')
+
+def services(request):
+    return render(request, 'services.html')
+
+def pharmacies(request):
+    return render(request, 'pharms.html')

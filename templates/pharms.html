@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 good"><div>
+        <h3>Здравица</h3>
+        <img src="{% static 'images/a1.jpg' %}">
+         <h4>г.Краматорск, ул.Вознесенского, д.24</h4>
+    </div></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 good"><div>
+        <h3>Эль доктор</h3>
+        <img src="{% static 'images/a2.jpg' %}">
+        <h4>г.Краматорск, ул.Маяковского, д.22</h4>
+    </div></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 good"><div>
+        <h3>Дарница</h3>
+        <img src="{% static 'images/a3.jpg' %}">
+        <h4>г.Краматорск, ул.Василия Стуса, д.24</h4>
+    </div></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 good">
+        <div>
+            <h3>Арника</h3>
+            <img src="{% static 'images/a4.jpg' %}">
+            <h4>г.Краматорск, ул.Олексия Тихого, д.31</h4>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

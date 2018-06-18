@@ -2,7 +2,7 @@ var map;
 var directionsDisplay;
 var directionsService;
 var markers = [];
-let directions = [];
+var nextOrigin;
 
 function initMap() {
     console.log(jsonMarkers, typeof(jsonMarkers));

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 good"><div>
+        <h3>Аптеки</h3><br>
+        <a href="{% url 'pharms' %}"><img src="{% static 'images/apteka.jpg' %}"></a>
+        <a href="{% url 'pharms' %}">Перейти</a>
+    </div></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 good"><div>
+        <h3>Медицинские центры</h3><br>
+        <a href=""><img src="{% static 'images/medcenter.jpg' %}"></a>
+        <a href="">Перейти</a>
+    </div></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 good"><div>
+        <h3>Специализированные магазины</h3>
+        <a href=""><img src="{% static 'images/magazin.png' %}"></a>
+        <a href="">Перейти</a>
+    </div></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 good"><div>
+        <h3>Массажные салоны</h3><br>
+        <a href=""><img src="{% static 'images/massag.jpg' %}"></a>
+        <a href="">Перейти</a>
+    </div>
+	</div>
+</div>
+{% endblock content %}
