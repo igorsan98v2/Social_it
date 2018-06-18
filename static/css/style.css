@@ -65,3 +65,11 @@ html, body {
 #navbar-main {
     background-color: #fff;
 }
+.places {
+    margin-left: 20px;
+
+    display: flex;
+}
+.cat_place {
+    width: 20%;
+}

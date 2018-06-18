@@ -1,3 +1,9 @@
+var map;
+var directionsDisplay;
+var directionsService;
+var markers = [];
+let directions = [];
+
 function initMap() {
     console.log(jsonMarkers, typeof(jsonMarkers));
 
@@ -14,11 +20,23 @@ function initMap() {
     };
     navigator.geolocation.getCurrentPosition(success, error);
 
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    var directionsService = new google.maps.DirectionsService;
-    var map = new google.maps.Map(document.getElementById('map'), {
+    directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsService = new google.maps.DirectionsService;
+
+    var center_pos;
+
+    if(jsonCenterId) {
+        for(var i = 0; i<jsonMarkers.length; i++) {
+            if(jsonMarkers[i][0]==jsonCenterId) center_pos = {lat: jsonMarkers[i][3], lng: jsonMarkers[i][4]}; 
+        }
+    }
+    else {
+        center_pos = {lat: 48.739083, lng: 37.584288}; 
+    }
+
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
-        center: {lat: 50.4376659, lng: 30.5283098},
+        center: center_pos,
     });
 
 
@@ -31,8 +49,6 @@ function initMap() {
             icon: "https://image.ibb.co/hBvWsy/location.png",
         });
     };
-
-    var markers = [];
 
     for(var i = 0; i<jsonMarkers.length; i++) {
         console.log(jsonMarkers[i][2]);
@@ -129,6 +145,7 @@ function initMap() {
                     origin: new google.maps.Point(0, 0),
                     zIndex: 9999999,
                 });
+                markers.push(marker);
                 break;
 
             case 2 :
@@ -138,6 +155,7 @@ function initMap() {
                     icon: "https://image.ibb.co/bvUPCy/icon2.png",
                     zIndex: 9999999,
                 });
+                markers.push(marker);
                 break;
 
             case 3 :
@@ -147,6 +165,7 @@ function initMap() {
                     icon: "https://image.ibb.co/hNmJ5J/icon3.png",
                     zIndex: 9999999,
                 });
+                markers.push(marker);
                 break;
 
             case 4 :
@@ -156,41 +175,18 @@ function initMap() {
                     icon: "https://image.ibb.co/ev34ed/icon1.png",
                     zIndex: 9999999,
                 });
+                markers.push(marker);
                 break;
         }
 
     }
 
-    function rad(x) {return x*Math.PI/180;}
-    function find_closest_marker() {
-        var lat = 48.739083;
-        var lng = 37.584288;
-        var R = 6371; // radius of earth in km
-        var distances = [];
-        var closest = -1;
-        for( i=0;i<markers.length; i++ ) {
-            var mlat = markers[i].position.lat();
-            var mlng = markers[i].position.lng();
-            var dLat  = rad(mlat - lat);
-            var dLong = rad(mlng - lng);
-            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(rad(lat)) * Math.cos(rad(lat)) * Math.sin(dLong/2) * Math.sin(dLong/2);
-            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            var d = R * c;
-            distances[i] = d;
-            if ( closest == -1 || d < distances[closest] ) {
-                closest = i;
-            }
-        }
-
-        console.log(markers[closest].title);
-        return markers[closest];
-    }
-    var nearestMarker = find_closest_marker();
+    
 
     directionsDisplay.setMap(map);
 
-    calculateAndDisplayRoute(directionsService, directionsDisplay, nearestMarker.position);
+    //calculateAndDisplayRoute(directionsService, directionsDisplay, nearestMarker.position);
+
     /*document.getElementById('mode').addEventListener('change', function() {
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     });*/
