@@ -137,7 +137,7 @@ public class SQLDriver extends SQLiteAssetHelper   {
 
 
 
-                  //   res =db.query(DATABASE_TABLE,null,null,null,null,null,null);
+                //   res =db.query(DATABASE_TABLE,null,null,null,null,null,null);
                 res = db.rawQuery("Select * from PLACES",null);
                 if (res != null) {
                     res.moveToFirst();
@@ -156,10 +156,10 @@ public class SQLDriver extends SQLiteAssetHelper   {
                         places.add(new Place(new LatLng(lat, lang), name, category_id, place_id));
                     }
                 }
-                }
-                catch (Exception e){
-                    Log.d("SQL",e.getMessage());
-                }
+            }
+            catch (Exception e){
+                Log.d("SQL",e.getMessage());
+            }
 
 
 

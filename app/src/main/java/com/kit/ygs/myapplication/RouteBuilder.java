@@ -19,7 +19,7 @@ public class RouteBuilder{
     private double destlog;
     public String makeURL (){
         StringBuilder urlString = new StringBuilder();
-        urlString.append("http://maps.googleapis.com/maps/api/directions/json");
+        urlString.append("https://maps.googleapis.com/maps/api/directions/json");
         urlString.append("?origin=");// from
         urlString.append(Double.toString(sourcelat));
         urlString.append(",");
@@ -43,6 +43,7 @@ public class RouteBuilder{
     public List<LatLng>getRoutes(){
         List<LatLng> list=null;
         JSONParser jParser = new JSONParser();
+        Log.d("URL",makeURL());
         String result = jParser.getJSONFromUrl(makeURL());
         try {
             final JSONObject jsonObject = new JSONObject(result);

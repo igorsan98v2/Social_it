@@ -1,16 +1,23 @@
 package com.kit.ygs.myapplication;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.widget.SearchView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +27,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -31,35 +40,47 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.provider.SettingsSlicesContract.KEY_LOCATION;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback{
     private GoogleMap mMap;
+    public   static Polyline polyline ;
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean mLocationPermissionGranted;
+    private boolean delLineFlag;
     //private GeoDataClient mGeoDataClient;
    // private PlaceDetectionClient mPlaceDetectionClient;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private final LatLng mDefaultLocation = new LatLng( 48.739083, 37.584288);
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
-    private Location mLastKnownLocation;
-
+    public  static   Location mLastKnownLocation;
+    public  static boolean routesFlag ;
+    public  Context context;
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        routesFlag = false;
+
+        polyline = null;
         setSupportActionBar(toolbar);
-
-
+        delLineFlag =false;
+        context = this;
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -96,8 +117,12 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        TextView textView =(TextView) findViewById(R.id.results);
+        textView.setText("suka blyat");
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -116,7 +141,31 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+
+          getMenuInflater().inflate(R.menu.searc_bar, menu);
+          MenuItem item =  menu.findItem(R.id.search_main);
+        searchView =(SearchView)item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+
+                SearchQuery query = new SearchQuery(s,context,mMap);
+                AsyncSearch asyncSearch = new AsyncSearch();
+                asyncSearch.execute(query);
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+                TextView textView =(TextView) findViewById(R.id.results);
+                textView.setText(s);
+                Log.d("searcbar",s);
+                return false;
+            }
+        });
         return true;
     }
 
@@ -140,23 +189,19 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        /*
-        if (id == R.id.nav_camera) {
+
+       /* if (id == R.id.) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
         */
 
+     //   getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
+     //   MenuItem item =  menu.findItem(R.id.search_main);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -165,11 +210,9 @@ public class MainActivity extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+  //      SearchRoute search =  new SearchRoute(searchView,this,mMap);
         SQLDriver sqlDriver = new SQLDriver(this);
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         ArrayList<Place> places = sqlDriver.queryPlaces(null);
         BitmapEditor editor = new BitmapEditor(this);
         for (Place place : places) {
@@ -179,15 +222,23 @@ public class MainActivity extends AppCompatActivity
             Bitmap marker = editor.edit(place.getCategory_id(), place.getPlace_id());
             MarkerOptions options = new MarkerOptions().position(place.getCoord()).title(place.getName()).icon(BitmapDescriptorFactory.fromBitmap(marker)).flat(true);
             mMap.addMarker(options);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(place.getCoord()));
-            getLocationPermission();
+
 
             // Turn on the My Location layer and the related control on the map.
-            updateLocationUI();
+
 
             // Get the current location of the device and set the position of the map.
-            getDeviceLocation();
+
         }
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(48.74568044,37.57203369)));
+                mMap.moveCamera(CameraUpdateFactory.zoomTo(17f));
+
+         getLocationPermission();
+        updateLocationUI();
+        getDeviceLocation();
+    //
+
     }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -222,6 +273,7 @@ public class MainActivity extends AppCompatActivity
                                     .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
+
                     }
                 });
             }
@@ -286,5 +338,6 @@ public class MainActivity extends AppCompatActivity
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
 
 }

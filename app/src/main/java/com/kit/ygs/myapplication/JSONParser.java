@@ -13,6 +13,9 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class JSONParser {
 
@@ -26,17 +29,14 @@ public class JSONParser {
             is=null;
 
         }
-        public String getJSONFromUrl(String url) {
+        public String getJSONFromUrl(String urlLink) {
             // Making HTTP request
             try {
                 // defaultHttpClient
-                DefaultHttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost(url);
-
-                HttpResponse httpResponse = httpClient.execute(httpPost);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                is = httpEntity.getContent();
-
+                Log.d("URL_POST",urlLink);
+                URL url = new URL(urlLink);
+                HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+                is = connection.getInputStream();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (Exception e) {

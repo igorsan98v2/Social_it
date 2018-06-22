@@ -28,14 +28,18 @@ public class BitmapEditor   {
         background = getBitmap(categoryID,true);
         frontend = getBitmap(placeID,false);
      // Bitmap eBitmam = Bitmap.createBitmap(background).copy(Bitmap.Config.ARGB_4444, true);//edited bitmap
-      Bitmap eBitmam = Bitmap.createBitmap(256,256, Bitmap.Config.ARGB_8888);
+      Bitmap eBitmam = Bitmap.createBitmap(128,128, Bitmap.Config.ARGB_8888);
       Canvas canvas = new Canvas(eBitmam);
       Matrix m = new Matrix();
 
+      m.setTranslate(0,64);
+      canvas.drawBitmap(frontend,m,paint);//команда настояла заменить,отвечаю <-я за это не отвественнен
+      m.setTranslate(128-32,0);//
+      m.setScale(0.25f,0.25f);
       canvas.drawBitmap(background,m,paint);
 
-      m.setTranslate(128,0);
-      canvas.drawBitmap(frontend,m,paint);
+
+
 
       canvas.save();
       return eBitmam;
@@ -45,7 +49,7 @@ public class BitmapEditor   {
         if(isCategoryID){
             switch (id){
                 case 1:bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon1cat);
-                break;
+                    break;
                 case 2:bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon2cat);
                     break;
                 case 3:bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon3cat);
