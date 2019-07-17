@@ -1,1 +1,2 @@
 # Social_it
+This repo contain software-simulator that is useful for student practice work  in educational institution.Example of  application development in this repo simulate  remote monitoring of patients state. All softwares were developed by Java language with using graphic library for RIA applications JavaFX 2.0 and addition for JavaFX material based library Jfoenix. Simulation of  client-server interaction  between sensors and application made by using TCP/IP  connection protocol that work at application for remote monitoring  side in async server mode.
